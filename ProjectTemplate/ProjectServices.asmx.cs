@@ -45,16 +45,23 @@ namespace ProjectTemplate
 			{
 				string testQuery = "select * from test";
 
-				////////////////////////////////////////////////////////////////////////
-				///here's an example of using the getConString method!
-				////////////////////////////////////////////////////////////////////////
-				MySqlConnection con = new MySqlConnection(getConString());
-				////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////
+                ///here's an example of using the getConString method!
+                ////////////////////////////////////////////////////////////////////////
+                //MySqlConnection con = new MySqlConnection(getConString());\
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+                ////////////////////////////////////////////////////////////////////////
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                string sqlSelect = "SELECT * from USERS";
 
-				MySqlCommand cmd = new MySqlCommand(testQuery, con);
-				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-				DataTable table = new DataTable();
-				adapter.Fill(table);
+
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+                //a data adapter acts like a bridge between our command object and 
+                //the data we are trying to get back and put in a table object
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+
+                DataTable table = new DataTable();
+                sqlDa.Fill(table);
 				return "Success!";
 			}
 			catch (Exception e)
