@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+          display: flex;
+        }
+        #signIn .column {
+          float: left;
+          height: 150px;
+        }
+        .left {
+          width: 70%;
+        }
+        .right {
+          width: 30%;
+        }
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+        #signIn{
+            background-color: maroon;
+            color: white;
+        }
+        #signUp .column {
+          width: 50%;
+          padding: 20px;
+          height: 300px;
+        }
+    </style> 
+</head>
+<body>
+    <div class="row" id="signIn">
+            <div class="column left">
+                <br>
+                <h1>&ensp;&ensp;Artwork Gallery</h1>
+            </div>
+            <div class="column right">
+            <form>
+                <br>
+                Email&emsp;&emsp;<input type="text" name="user_email">&ensp;<br><br>
+                Password&ensp;<input type="text" name="user_password"><br><br>
+                <input type="submit" value="Log In" style="border-radius: 5px; color:maroon; font-weight: bolder; padding: 5px 20px;">&ensp;&ensp;
+                <a href="" style="color:white;">Forgot account?</a><br>
+                
+            </form>
+            </div>
+    </div>
+    <div class="row" id="signUp">
+        <div class="column">
+            <h1 style="color:maroon;">Connect with friends and artists <br>around you on Art Gallery</h1>
+            <ul style="font-size: 20px;">
+            <li>View art gallery from other artists</li>
+            <li>Purchasing your favorite artworks</li>
+            <li>Displaying and selling your artworks to the world!</li> 
+            </ul>
+        </div>
+        <div class="column">
+            <h1 style="color:maroon;">SIGN UP</h1>
+            Already a member? <a href="">Sign in</a><br><br>
+            <form class="new_user" action="">
+                <input type="text" name="userfirstname" placeholder="First name">
+                <input type="text" name="userlastname" placeholder="Last name"><br><br>
+                <input type="text" name="email" placeholder="Email"><br><br>
+                <input type="text" name="password" placeholder="New password"><br><br>
+                Birthday<br><br>
+                <select name="bd_month">
+                    <option value="Jan">Jan</option>
+                    <option value="Feb">Feb</option>
+                    <option value="Mar">Mar</option>
+                    <option value="Apr">Apr</option>
+                    <option value="May">May</option>
+                    <option value="Jun">Jun</option>
+                    <option value="Jul">Jul</option>
+                    <option value="Aug">Aug</option>
+                    <option value="Sep">Sep</option>
+                    <option value="Oct">Oct</option>
+                    <option value="Nov">Nov</option>
+                    <option value="Dec">Dec</option>
+                </select>
+                <select name="bd_day">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+                <select id="year"></select>
+                <script>
+                        var start = 1900;
+                        var end = new Date().getFullYear();
+                        var options = "";
+                        for (var year = start; year <= end; year++) {
+                            options = "<option>" + year + "</option>";
+                        }
+                        document.getElementById("year").innerHTML = options;
+                </script><br><br>
+                Gender<br>
+                <input type="radio" name="gender" value="male" checked>Male
+                <input type="radio" name="gender" value="female" checked>Female
+                <input type="radio" name="gender" value="custom" checked>Custom
+                <br><br>
+                By clicking Sign Up, you agree to our Terms and Data Policy. You may receive SMS Notifications from us and can opt out any time.<br><br>
+                <input type="submit" value="Submit" style="background-color:maroon; border-radius: 5px; padding: 10px 30px; font-weight: bolder; border-style: none; color: white;">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
