@@ -90,9 +90,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="addimage.html" />
     <Content Include="Global.asax" />
+    <Content Include="heroImg.jpg" />
+    <Content Include="HomePage.html" />
     <Content Include="index.html" />
     <Content Include="ProjectServices.asmx" />
+    <Content Include="SignUpPage.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
