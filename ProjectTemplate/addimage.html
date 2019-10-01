@@ -158,38 +158,67 @@
   </style>
 
   <script type="text/javascript">
-        function readURL(input) {
-      if (input.files && input.files[0]) {
+      function readURL(input) {
+          if (input.files && input.files[0]) {
 
-        var reader = new FileReader();
+              var reader = new FileReader();
 
-        reader.onload = function(e) {
-          $('.image-upload-wrap').hide();
+              reader.onload = function (e) {
+                  $('.image-upload-wrap').hide();
 
-          $('.file-upload-image').attr('src', e.target.result);
-          $('.file-upload-content').show();
+                  $('.file-upload-image').attr('src', e.target.result);
+                  $('.file-upload-content').show();
 
-          $('.image-title').html(input.files[0].name);
-        };
+                  $('.image-title').html(input.files[0].name);
+              };
 
-        reader.readAsDataURL(input.files[0]);
+              reader.readAsDataURL(input.files[0]);
 
-      } else {
-        removeUpload();
+          } else {
+              removeUpload();
+          }
       }
-    }
 
-    function removeUpload() {
-      $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-      $('.file-upload-content').hide();
-      $('.image-upload-wrap').show();
-    }
-    $('.image-upload-wrap').bind('dragover', function () {
-        $('.image-upload-wrap').addClass('image-dropping');
+      function removeUpload() {
+          $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+          $('.file-upload-content').hide();
+          $('.image-upload-wrap').show();
+      }
+      $('.image-upload-wrap').bind('dragover', function () {
+          $('.image-upload-wrap').addClass('image-dropping');
       });
       $('.image-upload-wrap').bind('dragleave', function () {
-        $('.image-upload-wrap').removeClass('image-dropping');
-    });
+          $('.image-upload-wrap').removeClass('image-dropping');
+      });
+
+          function createUser(url, title, description, price) {
+              alert("adsljf");
+          var webMethod = "ProjectServices.asmx/CreateUser";
+              var parameters = "{\"firstName\":\"" + encodeURI(firstName) +
+              "\",\"lastName\":\"" + encodeURI(lastName) +
+              "\",\"email\":\"" + encodeURI(email) +
+              "\",\"userName\":\"" + encodeURI(userName) +
+              "\",\"password\":\"" + encodeURI(password) + "\" } ";
+          alert(parameters);
+
+          //jQuery ajax method
+              $.ajax({
+              type: "POST",
+          url: webMethod,
+          data: parameters,
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+                  success: function (msg) {
+                      var responseFromServer = msg.d;
+          alert(responseFromServer);
+          alert("after");
+      },
+                  error: function (e) {
+              alert("this code will only execute if javascript is unable to access the webservice");
+          }
+      });
+}
+
   </script>
 </head>
 
@@ -217,18 +246,24 @@
 </div>
 
 <div class="image-info">
-  <form action="/action_page.php">
-    <p>
-    <label>Title:</label> <input type="text" name="name"><br>
-    </p>
-    <p>
-    <label>Art Type: </label><input type="text" name="type"><br>
-    </p>
-    <p>
-    <label>Price: </label> <input type="text" name="price"><br>
-    </p>
-    <button type="submit" value="submit" class="save-btn">Save</button>
-</form>
+    <form onsubmit="uploadArt($('#URL').val(),
+                                        $('#title').val(),
+                                        $('#description').val(),
+                                        $('#price').val(); return false; ">
+        <p>
+            <label>URL:</label> <input type="text" id="URL"><br>
+        </p>
+        <p>
+            <label>Title:</label> <input type="text" id="title"><br>
+        </p>
+        <p>
+            <label>Description: </label><input type="text" id="description"><br>
+        </p>
+        <p>
+            <label>Price: </label> <input type="text" id="price"><br>
+        </p>
+        <button type="submit" value="submit" class="save-btn">Save</button>
+    </form>
 </div>
 
 </body>
