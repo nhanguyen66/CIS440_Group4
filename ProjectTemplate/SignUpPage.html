@@ -3,7 +3,13 @@
 <head>
     <title>Sign Up Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Roboto+Slab&display=swap" rel="stylesheet">
     <style>
+        body, html {
+          height: 100%;
+          margin: 0;
+          font-family: 'Roboto Slab', serif;
+        }
         * {
             box-sizing: border-box;
         }
@@ -29,6 +35,7 @@
         #signIn{
             background-color: maroon;
             color: white;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("heroImg.jpg");
         }
         #signUp .column {
           width: 50%;
@@ -41,14 +48,15 @@
     <div class="row" id="signIn">
             <div class="column left">
                 <br>
-                <h1>&ensp;&ensp;Artwork Gallery</h1>
+                <a href="test.html"><h1 style="font-family: 'Homemade Apple', cursive; display: inline-block; font-size: 40px; font-weight: bold; text-align: center; color: white;">&ensp;&ensp;Artwork Gallery</h1>
+                </a>
             </div>
             <div class="column right">
             <form>
                 <br>
                 Email&emsp;&emsp;<input type="text" name="user_email">&ensp;<br><br>
                 Password&ensp;<input type="text" name="user_password"><br><br>
-                <input type="submit" value="Log In" style="border-radius: 5px; color:maroon; font-weight: bolder; padding: 5px 20px;">&ensp;&ensp;
+                <input type="submit" value="Log In" style="border-radius: 5px; color:maroon; font-weight: bolder; padding: 5px 30px;">&ensp;&ensp;
                 <a href="" style="color:white;">Forgot account?</a><br>
                 
             </form>
@@ -71,7 +79,7 @@
                 <input type="text" name="userlastname" placeholder="Last name"><br><br>
                 <input type="text" name="email" placeholder="Email"><br><br>
                 <input type="text" name="password" placeholder="New password"><br><br>
-                Birthday<br><br>
+                <!-- Birthday<br><br>
                 <select name="bd_month">
                     <option value="Jan">Jan</option>
                     <option value="Feb">Feb</option>
@@ -120,7 +128,8 @@
                     <option value="31">31</option>
                 </select>
                 <select id="year"></select>
-                <script>
+                <script type="text/javascript">
+                    function yearOptions (){
                         var start = 1900;
                         var end = new Date().getFullYear();
                         var options = "";
@@ -128,11 +137,13 @@
                             options = "<option>" + year + "</option>";
                         }
                         document.getElementById("year").innerHTML = options;
+                    }
+                        window.onload= yearOptions();
                 </script><br><br>
                 Gender<br>
                 <input type="radio" name="gender" value="male" checked>Male
                 <input type="radio" name="gender" value="female" checked>Female
-                <input type="radio" name="gender" value="custom" checked>Custom
+                <input type="radio" name="gender" value="custom" checked>Custom -->
                 <br><br>
                 By clicking Sign Up, you agree to our Terms and Data Policy. You may receive SMS Notifications from us and can opt out any time.<br><br>
                 <input type="submit" value="Submit" style="background-color:maroon; border-radius: 5px; padding: 10px 30px; font-weight: bolder; border-style: none; color: white;">
