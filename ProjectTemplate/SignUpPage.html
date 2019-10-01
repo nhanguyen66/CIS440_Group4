@@ -1,84 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Sign Up Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Roboto+Slab&display=swap" rel="stylesheet">
     <style>
         body, html {
-          height: 100%;
-          margin: 0;
-          font-family: 'Roboto Slab', serif;
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto Slab', serif;
         }
+
         * {
             box-sizing: border-box;
         }
 
         .row {
-          display: flex;
+            display: flex;
         }
+
         #signIn .column {
-          float: left;
-          height: 150px;
+            float: left;
+            height: 150px;
         }
+
         .left {
-          width: 70%;
+            width: 70%;
         }
+
         .right {
-          width: 30%;
+            width: 30%;
         }
+
         .row:after {
-          content: "";
-          display: table;
-          clear: both;
+            content: "";
+            display: table;
+            clear: both;
         }
-        #signIn{
+
+        #signIn {
             background-color: maroon;
             color: white;
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("heroImg.jpg");
         }
+
         #signUp .column {
-          width: 50%;
-          padding: 20px;
-          height: 300px;
+            width: 50%;
+            padding: 20px;
+            height: 300px;
         }
-    </style> 
+    </style>
+
+    <script type="text/javascript">
+        
+        function createUser(firstName, lastName, email, userName, password) {
+            alert("adsljf");
+            var webMethod = "ProjectServices.asmx/CreateUser";
+            var parameters = "{\"firstName\":\"" + encodeURI(firstName) + 
+                "\",\"lastName\":\"" + encodeURI(lastName) +
+                "\",\"email\":\"" + encodeURI(email) +
+                "\",\"userName\":\"" + encodeURI(userName) +
+                "\",\"password\":\"" + encodeURI(password) + "\" } ";
+            alert(parameters);
+
+            //jQuery ajax method
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    var responseFromServer = msg.d;
+                    alert(responseFromServer);
+                    alert("after");
+                },
+                error: function (e) {
+                    alert("this code will only execute if javascript is unable to access the webservice");
+                }
+            });
+        }
+    </script>
 </head>
+
 <body>
     <div class="row" id="signIn">
-            <div class="column left">
-                <br>
-                <a href="HomePage.html"><h1 style="font-family: 'Homemade Apple', cursive; display: inline-block; font-size: 40px; font-weight: bold; text-align: center; color: white;">&ensp;&ensp;Artwork Gallery</h1>
-                </a>
-            </div>
-            <div class="column right">
+        <div class="column left">
+            <br>
+            <a href="HomePage.html">
+                <h1 style="font-family: 'Homemade Apple', cursive; display: inline-block; font-size: 40px; font-weight: bold; text-align: center; color: white;">&ensp;&ensp;Artwork Gallery</h1>
+            </a>
+        </div>
+        <div class="column right">
             <form>
                 <br>
                 Email&emsp;&emsp;<input type="text" name="user_email">&ensp;<br><br>
                 Password&ensp;<input type="text" name="user_password"><br><br>
                 <input type="submit" value="Log In" style="border-radius: 5px; color:maroon; font-weight: bolder; padding: 5px 30px;">&ensp;&ensp;
                 <a href="" style="color:white;">Forgot account?</a><br>
-                
+
             </form>
-            </div>
+        </div>
     </div>
     <div class="row" id="signUp">
         <div class="column">
             <h1 style="color:maroon;">Connect with friends and artists <br>around you on Art Gallery</h1>
             <ul style="font-size: 20px;">
-            <li>View art gallery from other artists</li>
-            <li>Purchasing your favorite artworks</li>
-            <li>Displaying and selling your artworks to the world!</li> 
+                <li>View art gallery from other artists</li>
+                <li>Purchasing your favorite artworks</li>
+                <li>Displaying and selling your artworks to the world!</li>
             </ul>
         </div>
         <div class="column">
             <h1 style="color:maroon;">SIGN UP</h1>
             Already a member? <a href="">Sign in</a><br><br>
-            <form class="new_user" action="">
-                <input type="text" name="userfirstname" placeholder="First name">
-                <input type="text" name="userlastname" placeholder="Last name"><br><br>
-                <input type="text" name="email" placeholder="Email"><br><br>
-                <input type="text" name="password" placeholder="New password"><br><br>
+            <form class="new_user" 
+                  onsubmit="createUser($('#firstName').val(),
+                                        $('#lastName').val(),
+                                        $('#email').val(),
+                                        $('#username').val(),
+                                        $('#password').val()); return false; " 
+                  name="createAccountForm">
+
+                <input type="text" id="firstName" name="userfirstname" placeholder="First name">
+                <input type="text" id="lastName" name="userlastname" placeholder="Last name"><br><br>
+                <input type="text" id="email" name="email" placeholder="Email"><br><br>
+                <input type="text" id="username" name="username" placeholder="New username"><br><br>
+                <input type="text" id="password" name="password" placeholder="New password"><br><br>
                 <!-- Birthday<br><br>
                 <select name="bd_month">
                     <option value="Jan">Jan</option>
@@ -146,9 +195,11 @@
                 <input type="radio" name="gender" value="custom" checked>Custom -->
                 <br><br>
                 By clicking Sign Up, you agree to our Terms and Data Policy. You may receive SMS Notifications from us and can opt out any time.<br><br>
-                <input type="submit" value="Submit" style="background-color:maroon; border-radius: 5px; padding: 10px 30px; font-weight: bolder; border-style: none; color: white;">
+                <input  type="submit" value="Submit" style="background-color:maroon; border-radius: 5px; padding: 10px 30px; font-weight: bolder; border-style: none; color: white;">
             </form>
         </div>
     </div>
 </body>
 </html>
+
+

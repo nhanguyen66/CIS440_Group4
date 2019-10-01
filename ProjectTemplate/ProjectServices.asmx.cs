@@ -45,10 +45,6 @@ namespace ProjectTemplate
 			{
 				string testQuery = "select * from test";
 
-                ////////////////////////////////////////////////////////////////////////
-                ///here's an example of using the getConString method!
-                ////////////////////////////////////////////////////////////////////////
-                //MySqlConnection con = new MySqlConnection(getConString());\
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
                 ////////////////////////////////////////////////////////////////////////
                 MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
@@ -69,5 +65,41 @@ namespace ProjectTemplate
 				return "Something went wrong, please check your credentials and db name and try again.  Error: "+e.Message;
 			}
 		}
+
+        [WebMethod(EnableSession = true)]
+        public string CreateUser(string firstName, string lastName, string email, string userName, string password)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+
+            string insertUser = "insert into USERS" +
+                "(USER_NAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL)" +
+                " VALUES " +
+                 "(@username,@password, @firstName, @lastName,@email);" +
+                "SELECT USER_ID FROM USERS ORDER BY JOIN_DATE DESC LIMIT 1;";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(insertUser, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@username", HttpUtility.UrlDecode(userName));
+            sqlCommand.Parameters.AddWithValue("@password", HttpUtility.UrlDecode(password));
+            sqlCommand.Parameters.AddWithValue("@firstName", HttpUtility.UrlDecode(firstName));
+            sqlCommand.Parameters.AddWithValue("@lastName", HttpUtility.UrlDecode(lastName));
+            sqlCommand.Parameters.AddWithValue("@email", HttpUtility.UrlDecode(email));
+
+
+            int accountID;
+
+            sqlConnection.Open();
+            try
+            {
+                accountID = Convert.ToInt32(sqlCommand.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+
+            return accountID.ToString(); 
+        }
 	}
 }
