@@ -120,7 +120,7 @@ namespace ProjectTemplate
                 "(USER_NAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL)" +
                 " VALUES " +
                  "(@username,@password, @firstName, @lastName,@email);" +
-                "SELECT USER_ID FROM USERS ORDER BY JOIN_DATE DESC LIMIT 1;";
+                "SELECT FIRST_NAME FROM USERS ORDER BY JOIN_DATE DESC LIMIT 1;";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(insertUser, sqlConnection);
@@ -132,12 +132,12 @@ namespace ProjectTemplate
             sqlCommand.Parameters.AddWithValue("@email", HttpUtility.UrlDecode(email));
 
 
-            int accountID;
+            string accountID;
 
             sqlConnection.Open();
             try
             {
-                accountID = Convert.ToInt32(sqlCommand.ExecuteScalar());
+                accountID = Convert.ToString(sqlCommand.ExecuteScalar());
             }
             catch (Exception ex)
             {
@@ -195,5 +195,34 @@ namespace ProjectTemplate
 
             return returnTitle;
         }
-    }
-}
+
+        [WebMethod(EnableSession = true)]
+        public string onLoadHome()
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            List<String> columnData = new List<String>();
+
+            using (sqlConnection)
+            {
+                sqlConnection.Open();
+                string query = "SELECT URL FROM ART";
+                using (MySqlCommand command = new MySqlCommand(query, sqlConnection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            columnData.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            } //end using connection
+
+            string jsonArt = Newtonsoft.Json.JsonConvert.SerializeObject(columnData);
+            return jsonArt;
+        }
+
+    } //end class
+
+} //end namespace

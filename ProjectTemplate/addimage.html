@@ -189,14 +189,12 @@
         });
 
         function AddArt(userEmail, url, title, description, price) {
-            alert("adsljf");
             var webMethod = "ProjectServices.asmx/AddArt";
             var parameters = "{\"userEmail\":\"" + encodeURI(userEmail) +
                 "\",\"url\":\"" + encodeURI(url) +
                 "\",\"title\":\"" + encodeURI(title) +
                 "\",\"description\":\"" + encodeURI(description) +
                 "\",\"price\":\"" + encodeURI(price)+"\" } ";
-            alert(parameters);
 
             //jQuery ajax method
             $.ajax({
@@ -207,8 +205,7 @@
                 dataType: "json",
                 success: function (msg) {
                     var responseFromServer = msg.d;
-                    alert(responseFromServer);
-                    alert("after");
+                    alert("Thank you for uploading artwork: " + responseFromServer);
                 },
                 error: function (e) {
                     alert("this code will only execute if javascript is unable to access the webservice");
@@ -275,6 +272,7 @@
                 <br>
             </p>
             <button type="submit" value="submit" class="save-btn">Save</button>
+            <button onclick="location.href = 'profile.html'">Return to Profile</button>
         </form>
     </div>
 
