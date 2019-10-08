@@ -1,19 +1,69 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html >
 <head>
-  <meta charset="UTF-8">
-  <title>User Profile</title>
-  
-  
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+
+
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css'>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600'>
 
     <link rel="stylesheet" href="profilestyle.css">
+
+    <script type="text/javascript">
+        function GetAccounts() {
+            var webMethod = "ProjectServices.asmx/GetAccounts";
+
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.d.length > 0) {
+                        //let's put our accounts that we get from the
+                        //server into our accountsArray variable
+                        //so we can use them in other functions as well
+                        accountsArray = msg.d;
+                        //this clears out the div that will hold our account info
+                        $("#accountsBox").empty();
+                        
+                        for (var i = 0; i < accountsArray.length; i++) {
+                            //we grab on to a specific html element in jQuery
+                            //by using a  # followed by that element's id.
+                            var acct;
+                            //if they have access to admin-level info (like userid and password) then
+                            //create output that has an edit option
+                            document.getElementById('name').innerHTML += accountsArray[i].firstName + " " + accountsArray[i].lastName;
+                            document.getElementById('info').innerHTML += accountsArray[i].email;
+
+                            }
+                            //if not, then they're not an admin so don't include the edit option
+                            
+                            $("#accountsBox").append(
+                                //anything we throw at our panel in the form of text
+                                //will be added to the contents of that panel.  Here
+                                //we're putting together a div that holds info on the
+                                //account as well as an edit link if the user is an admin
+                                acct
+                            );
+                       
+                    }
+                 
+                },
+                error: function (e) {
+                    alert("boo...");
+                }
+            });
+        }
+        
+        window.onload = getAccounts;
+    </script>
+
+
 </head>
 
-
-                                    
 <body>
   <div class="container">
   <header>
@@ -26,11 +76,11 @@
           <img class="photo" src="https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg"/>
         </div>
         <h4 class="name">Jane Doe</h4>
-        <p class="info">UI/UX Designer</p>
+        
         <p class="info">jane.doe@gmail.com</p>
         <div class="stats row">
         </div>
-        <p class="desc">Hi ! My name is Jane Doe. I'm a UI/UX Designer from Paris, in France. I really enjoy photography and moutains.</p>
+        
         <div class="social">
           <i class="fa fa-facebook-square" aria-hidden="true"></i>
           <i class="fa fa-twitter-square" aria-hidden="true"></i>
@@ -69,7 +119,7 @@
       </div>
   </main>
 </div>
-
-
+  
+  
 </body>
 </html>
