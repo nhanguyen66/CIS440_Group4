@@ -225,6 +225,7 @@ namespace ProjectTemplate
             return jsonArt;
         }
 
+        [WebMethod(EnableSession = true)]
         public string GetArtist(string url)
         {
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
@@ -248,7 +249,8 @@ namespace ProjectTemplate
                 return ex.ToString();
             }
             sqlConnection.Close();
-            return artist;
+            string a = Newtonsoft.Json.JsonConvert.SerializeObject(artist);
+            return a;
         }
         
 

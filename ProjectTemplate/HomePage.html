@@ -78,34 +78,7 @@
                 }
             });
         }
-
-        function loadArtwork(artURLS) {
-            var artworkDiv = document.getElementById('artworkDiv');
-            var artURLS = artURLS.replace("[", "");
-            var artURLS = artURLS.replace("]", "");
-            var urls = artURLS.split(",");
-            for (var i = 0; i < urls.length; i++) {
-
-                var url = urls[i].substr(1);
-                url = url.slice(0, -1);
-                artist = GetArtist(url);
-
-                var newDiv = document.createElement('div');
-                newDiv.setAttribute("class", "polaroid");
-                var elem = document.createElement('img');
-                elem.setAttribute("style", "width: 800px; height: 800px;overflow: hidden;");
-                elem.src = url;
-                newDiv.appendChild(elem);
-
-                var text = document.createElement('p');
-                text.innerHTML = "artist: " + artist;
-                newDiv.appendChild(text);
-                text.setAttribute("style", "float: right; padding-right: 50px;");
-                document.getElementById('artworkDiv').appendChild(newDiv);
-            }
-        }
-
-        function GetArtist(url) {
+                function GetArtist(url) {
             var webMethod = "ProjectServices.asmx/GetArtist";
             var parameters = "{\"url\":\"" + encodeURI(url) + "\" } ";
             var artist;
@@ -116,14 +89,75 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (msg) {
-                    artist = msg.d;
+                    alert(msg.type);
+                    return msg.data;
+                    //artist =  msg.d;
+                    //alert(msg.d);
+                    //alert("inside method: " + artist);
                 },
                 error: function (e) {
-                //alert("this code will only execute if javascript is unable to access the webservice");
+                    alert("this code will only execute if javascript is unable to access the webservice");
             }
             });
+            //alert("before return: " + artist);
             return artist;
          }
+
+        function loadArtwork(artURLS) {
+            var artworkDiv = document.getElementById('artworkDiv');
+            var artURLS = artURLS.replace("[", "");
+            var artURLS = artURLS.replace("]", "");
+            var urls = artURLS.split(",");
+            for (var i = 0; i < urls.length; i++) {
+
+                var url = urls[i].substr(1);
+                url = url.slice(0, -1);
+                //var artist = "";
+                //artist = GetArtist(url);
+                ////alert(getARtist(url));
+                //alert("received: " + artist);
+
+            //    var artist;
+            //var webMethod = "ProjectServices.asmx/GetArtist";
+            //var parameters = "{\"url\":\"" + encodeURI(url) + "\" } ";
+            //var artist;
+            //$.ajax({
+            //    type: "POST",
+            //    url: webMethod,
+            //    data: parameters,
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "json",
+            //    success: function (msg) {
+            //        //alert(msg.d);
+            //        artist =  msg.d;
+            //        //artist =  msg.d;
+            //        //alert(msg.d);
+            //        //alert("inside method: " + artist);
+            //    },
+            //    error: function (e) {
+            //        alert("this code will only execute if javascript is unable to access the webservice");
+            //}
+            //});
+
+
+
+
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute("class", "polaroid");
+                var elem = document.createElement('img');
+                elem.setAttribute("style", "width: 800px; height: 800px;overflow: hidden;");
+                elem.src = url;
+                newDiv.appendChild(elem);
+
+                var text = document.createElement('p');
+                text.innerHTML = ""; /*"artist: " + artist;*/
+                newDiv.appendChild(text);
+                text.setAttribute("style", "float: right; padding-right: 50px;");
+                document.getElementById('artworkDiv').appendChild(newDiv);
+            }
+        }
+
+
 
     </script>
     <style>
@@ -190,7 +224,7 @@
 <body>
     <header>
         <div class="col1" style="display: inline-block; height: 250px; width: 80%; float: left;background-color: white;">
-            <h1 style="font-family: 'Homemade Apple', cursive; display: inline-block; font-size: 50px; font-weight: bold; text-align: center;">&ensp;&ensp;Artwork Gallery&ensp;</h1>
+            <h1 style="font-family: 'Homemade Apple', cursive; display: inline-block; font-size: 50px; font-weight: bold; text-align: center;">&ensp;&ensp;Art Cloud&ensp;</h1>
         </div>
             <div class="col2" style="display: inline-block; width: 20%; float: right; height: 250px;background-color: white;" ">
                 <form onsubmit="LogOn($('#logonId').val(), $('#logonPassword').val()); return false;">

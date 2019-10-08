@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html >
 <head>
     <meta charset="UTF-8">
@@ -35,11 +35,13 @@
                             var acct;
                             //if they have access to admin-level info (like userid and password) then
                             //create output that has an edit option
-                            document.getElementById('name').innerHTML += accountsArray[i].firstName + " " + accountsArray[i].lastName;
+                            document.getElementById('name').innerHTML += session["user id"];//accountsArray[i].firstName + " " + accountsArray[i].lastName;
                             document.getElementById('info').innerHTML += accountsArray[i].email;
 
-                            }
-                            //if not, then they're not an admin so don't include the edit option
+                        }
+                        document.getElementById('name').innerHTML = session["user_id"];
+
+
                             
                             $("#accountsBox").append(
                                 //anything we throw at our panel in the form of text
@@ -75,9 +77,9 @@
         <div class="photo-left">
           <img class="photo" src="https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg"/>
         </div>
-        <h4 class="name">Jane Doe</h4>
+        <h4 class="name">session</h4>
         
-        <p class="info">jane.doe@gmail.com</p>
+        <p class="info" id="name">jane.doe@gmail.com</p>
         <div class="stats row">
         </div>
         
@@ -117,6 +119,7 @@
           </div>
         </div>
       </div>
+        <div
   </main>
 </div>
   
