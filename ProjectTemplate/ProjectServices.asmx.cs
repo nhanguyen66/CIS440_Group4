@@ -9,41 +9,41 @@ using System.Data;
 
 namespace ProjectTemplate
 {
-	[WebService(Namespace = "http://tempuri.org/")]
-	[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-	[System.ComponentModel.ToolboxItem(false)]
-	[System.Web.Script.Services.ScriptService]
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]
+    [System.Web.Script.Services.ScriptService]
 
-	public class ProjectServices : System.Web.Services.WebService
-	{
-		////////////////////////////////////////////////////////////////////////
-		///replace the values of these variables with your database credentials
-		////////////////////////////////////////////////////////////////////////
-		private string dbID = "cis440template";
-		private string dbPass = "!!Cis440";
-		private string dbName = "cis440template";
-		////////////////////////////////////////////////////////////////////////
-		
-		////////////////////////////////////////////////////////////////////////
-		///call this method anywhere that you need the connection string!
-		////////////////////////////////////////////////////////////////////////
-		private string getConString() {
-			return "SERVER=107.180.1.16; PORT=3306; DATABASE=" + dbName+"; UID=" + dbID + "; PASSWORD=" + dbPass;
-		}
-		////////////////////////////////////////////////////////////////////////
+    public class ProjectServices : System.Web.Services.WebService
+    {
+        ////////////////////////////////////////////////////////////////////////
+        ///replace the values of these variables with your database credentials
+        ////////////////////////////////////////////////////////////////////////
+        private string dbID = "cis440template";
+        private string dbPass = "!!Cis440";
+        private string dbName = "cis440template";
+        ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        ///call this method anywhere that you need the connection string!
+        ////////////////////////////////////////////////////////////////////////
+        private string getConString() {
+            return "SERVER=107.180.1.16; PORT=3306; DATABASE=" + dbName + "; UID=" + dbID + "; PASSWORD=" + dbPass;
+        }
+        ////////////////////////////////////////////////////////////////////////
 
 
 
-		/////////////////////////////////////////////////////////////////////////
-		//don't forget to include this decoration above each method that you want
-		//to be exposed as a web service!
-		[WebMethod(EnableSession = true)]
-		/////////////////////////////////////////////////////////////////////////
-		public string TestConnection()
-		{
-			try
-			{
-				string testQuery = "select * from test";
+        /////////////////////////////////////////////////////////////////////////
+        //don't forget to include this decoration above each method that you want
+        //to be exposed as a web service!
+        [WebMethod(EnableSession = true)]
+        /////////////////////////////////////////////////////////////////////////
+        public string TestConnection()
+        {
+            try
+            {
+                string testQuery = "select * from test";
 
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
                 ////////////////////////////////////////////////////////////////////////
@@ -58,13 +58,13 @@ namespace ProjectTemplate
 
                 DataTable table = new DataTable();
                 sqlDa.Fill(table);
-				return "Success!";
-			}
-			catch (Exception e)
-			{
-				return "Something went wrong, please check your credentials and db name and try again.  Error: "+e.Message;
-			}
-		}
+                return "Success!";
+            }
+            catch (Exception e)
+            {
+                return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
+            }
+        }
 
         [WebMethod(EnableSession = true)] //NOTICE: gotta enable session on each individual method
         public bool LogOn(string email, string password)
@@ -96,6 +96,7 @@ namespace ProjectTemplate
             DataTable sqlDt = new DataTable();
             //here we go filling it!
             sqlDa.Fill(sqlDt);
+            Account currentAccount;
             //check to see if any rows were returned.  If they were, it means it's 
             //a legit account
             if (sqlDt.Rows.Count > 0)
@@ -103,8 +104,17 @@ namespace ProjectTemplate
                 //if we found an account, store the id and admin status in the session
                 //so we can check those values later on other method calls to see if they 
                 //are 1) logged in at all, and 2) and admin or not
-                Session["user_id"] = sqlDt.Rows[0]["user_id"];
-       
+                Session["USER_ID"] = sqlDt.Rows[0]["USER_ID"];
+                currentAccount = (new Account
+                (
+                    sqlDt.Rows[0]["USER_ID"].ToString(),
+                    sqlDt.Rows[0]["PASSWORD"].ToString(),
+                    sqlDt.Rows[0]["FIRST_NAME"].ToString(),
+                    sqlDt.Rows[0]["LAST_NAME"].ToString(),
+                    sqlDt.Rows[0]["EMAIL"].ToString(),
+                    sqlDt.Rows[0]["USERNAME"].ToString()
+                ));
+
                 success = true;
             }
             //return the result!
@@ -144,7 +154,7 @@ namespace ProjectTemplate
                 return ex.ToString();
             }
 
-            return accountID.ToString(); 
+            return accountID.ToString();
         }
 
 
@@ -252,7 +262,65 @@ namespace ProjectTemplate
             string a = Newtonsoft.Json.JsonConvert.SerializeObject(artist);
             return a;
         }
-        
+
+        ////EXAMPLE OF A SELECT, AND RETURNING "COMPLEX" DATA TYPES
+        //[WebMethod]
+        //public Account[] GetAccounts()
+        //{
+        //    //check out the return type.  It's an array of Account objects.  You can look at our custom Account class in this solution to see that it's 
+        //    //just a container for public class-level variables.  It's a simple container that asp.net will have no trouble converting into json.  When we return
+        //    //sets of information, it's a good idea to create a custom container class to represent instances (or rows) of that information, and then return an array of those objects.  
+        //    //Keeps everything simple.
+
+        //    //LOGIC: get all the active accounts and return them!
+
+        //    DataTable sqlDt = new DataTable("accounts");
+
+        //    string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+        //    string sqlSelect = "select USER_ID, FIRST_NAME, LAST_NAME FROM USERS ";
+
+        //    MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+        //    MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+        //    //gonna use this to fill a data table
+        //    MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+        //    //filling the data table
+        //    sqlDa.Fill(sqlDt);
+
+        //    //loop through each row in the dataset, creating instances
+        //    //of our container class Account.  Fill each acciount with
+        //    //data from the rows, then dump them in a list.
+        //    List<Account> accounts = new List<Account>();
+        //    for (int i = 0; i < sqlDt.Rows.Count; i++)
+        //    {
+        //        accounts.Add(new Account
+        //        {
+        //            id = Convert.ToInt32(sqlDt.Rows[i]["id"]),
+        //            userId = sqlDt.Rows[i]["user_id"].ToString(),
+        //            password = sqlDt.Rows[i]["pass"].ToString(),
+        //            firstName = sqlDt.Rows[i]["firstname"].ToString(),
+        //            lastName = sqlDt.Rows[i]["lastname"].ToString(),
+        //            email = sqlDt.Rows[i]["email"].ToString()
+        //        });
+        //    }
+        //    //convert the list of accounts to an array and return!
+        //    return accounts.ToArray();
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     } //end class
 

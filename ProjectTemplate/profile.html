@@ -59,8 +59,11 @@
                 }
             });
         }
-        
-        window.onload = getAccounts;
+
+        function load() {
+            alert(session[USER_ID]);
+        }
+        window.onload = load;
     </script>
 
 
