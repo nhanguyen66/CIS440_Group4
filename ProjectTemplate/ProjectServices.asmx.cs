@@ -101,5 +101,54 @@ namespace ProjectTemplate
 
             return accountID.ToString(); 
         }
-	}
+
+
+        [WebMethod(EnableSession = true)]
+        public string AddArt(string userEmail, string url, string title, string description, string price)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+            string getUser = "SELECT USER_ID FROM USERS WHERE USER_NAME = @userEmail";
+            string insertArt = "insert into ART" +
+                "(USER_ID, TITLE, DESCRIPTION, PRICE, URL)" +
+                " VALUES " +
+                 "(@userID, @title, @description, @price, @url);" +
+                "SELECT TITLE FROM ART ORDER BY POST_DATE DESC LIMIT 1;";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand getUserCommand = new MySqlCommand(getUser, sqlConnection);
+            MySqlCommand insertArtCommand = new MySqlCommand(insertArt, sqlConnection);
+
+            getUserCommand.Parameters.AddWithValue("@userEmail", HttpUtility.UrlDecode(userEmail));
+
+            insertArtCommand.Parameters.AddWithValue("@url", HttpUtility.UrlDecode(url));
+            insertArtCommand.Parameters.AddWithValue("@title", HttpUtility.UrlDecode(title));
+            insertArtCommand.Parameters.AddWithValue("@description", HttpUtility.UrlDecode(description));
+            insertArtCommand.Parameters.AddWithValue("@price", HttpUtility.UrlDecode(price));
+
+            int userID;
+            string returnTitle;
+
+            sqlConnection.Open();
+            try
+            {
+                userID = Convert.ToInt32(getUserCommand.ExecuteScalar());
+                insertArtCommand.Parameters.AddWithValue("@userID", userID);
+                try
+                {
+                    returnTitle = Convert.ToString(insertArtCommand.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return "Wrong email address";
+            }
+
+            return returnTitle;
+        }
+    }
 }

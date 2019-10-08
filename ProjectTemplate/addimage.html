@@ -1,225 +1,222 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+    <title></title>
 
-  <style type="text/css">
-      body {
-      font-family: sans-serif;
-      background-color: #eeeeee;
-    }
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            background-color: #eeeeee;
+        }
 
-    .file-upload {
-      background-color: #ffffff;
-      width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+        .file-upload {
+            background-color: #ffffff;
+            width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    .file-upload-btn {
-      width: 100%;
-      margin: 0;
-      color: #fff;
-      background: maroon;
-      border: none;
-      padding: 10px;
-      border-radius: 4px;
-      border-bottom: 4px solid grey;
-      transition: all .2s ease;
-      outline: none;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
+        .file-upload-btn {
+            width: 100%;
+            margin: 0;
+            color: #fff;
+            background: maroon;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            border-bottom: 4px solid grey;
+            transition: all .2s ease;
+            outline: none;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
 
-    .file-upload-btn:hover {
-      background: red;
-      color: #ffffff;
-      transition: all .2s ease;
-      cursor: pointer;
-    }
+        .file-upload-btn:hover {
+            background: red;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
 
-    .file-upload-btn:active {
-      border: 0;
-      transition: all .2s ease;
-    }
+        .file-upload-btn:active {
+            border: 0;
+            transition: all .2s ease;
+        }
 
-    .file-upload-content {
-      display: none;
-      text-align: center;
-    }
+        .file-upload-content {
+            display: none;
+            text-align: center;
+        }
 
-    .file-upload-input {
-      position: absolute;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      outline: none;
-      opacity: 0;
-      cursor: pointer;
-    }
+        .file-upload-input {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            opacity: 0;
+            cursor: pointer;
+        }
 
-    .image-upload-wrap {
-      margin-top: 20px;
-      border: 4px dashed maroon;
-      position: relative;
-    }
+        .image-upload-wrap {
+            margin-top: 20px;
+            border: 4px dashed maroon;
+            position: relative;
+        }
 
-    .image-dropping,
-    .image-upload-wrap:hover {
-      background-color: lightgrey;
-      border: 4px dashed #ffffff;
-    }
+            .image-dropping,
+            .image-upload-wrap:hover {
+                background-color: lightgrey;
+                border: 4px dashed #ffffff;
+            }
 
-    .image-title-wrap {
-      padding: 0 15px 15px 15px;
-      color: #222;
-    }
+        .image-title-wrap {
+            padding: 0 15px 15px 15px;
+            color: #222;
+        }
 
-    .drag-text {
-      text-align: center;
-    }
+        .drag-text {
+            text-align: center;
+        }
 
-    .drag-text h3 {
-      font-weight: 100;
-      text-transform: uppercase;
-      color: black;
-      padding: 60px 0;
-    }
+            .drag-text h3 {
+                font-weight: 100;
+                text-transform: uppercase;
+                color: black;
+                padding: 60px 0;
+            }
 
-    .file-upload-image {
-      max-height: 200px;
-      max-width: 200px;
-      margin: auto;
-      padding: 20px;
-    }
+        .file-upload-image {
+            max-height: 200px;
+            max-width: 200px;
+            margin: auto;
+            padding: 20px;
+        }
 
-    .remove-image {
-      width: 200px;
-      margin: 0;
-      color: #fff;
-      background: #cd4535;
-      border: none;
-      padding: 10px;
-      border-radius: 4px;
-      border-bottom: 4px solid #b02818;
-      transition: all .2s ease;
-      outline: none;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
+        .remove-image {
+            width: 200px;
+            margin: 0;
+            color: #fff;
+            background: #cd4535;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            border-bottom: 4px solid #b02818;
+            transition: all .2s ease;
+            outline: none;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
 
-    .remove-image:hover {
-      background: #c13b2a;
-      color: #ffffff;
-      transition: all .2s ease;
-      cursor: pointer;
-    }
+            .remove-image:hover {
+                background: #c13b2a;
+                color: #ffffff;
+                transition: all .2s ease;
+                cursor: pointer;
+            }
 
-    .remove-image:active {
-      border: 0;
-      transition: all .2s ease;
-    }
-   
-    .image-info {
-      margin: auto;
-      width: 40%;
-      border: 3px solid maroon;
-      background: white;
-      padding: 10px;
-}
-   
-    .save-btn{
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      background: maroon;
-      color: white;
-}
-   
-    form  { 
-      display: table;
+            .remove-image:active {
+                border: 0;
+                transition: all .2s ease;
+            }
 
-    width:50%; 
-    margin:0 auto;
-    }
-    p { 
-      display: table-row;  
-    }
-    label { 
-      display: table-cell;
-      text-align: right;
-      padding-right: 10px
-    }
-    input { 
-      display: table-cell;
-}
+        .image-info {
+            margin: auto;
+            width: 40%;
+            border: 3px solid maroon;
+            background: white;
+            padding: 10px;
+        }
 
-  </style>
+        .save-btn {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            background: maroon;
+            color: white;
+        }
 
-  <script type="text/javascript">
-      function readURL(input) {
-          if (input.files && input.files[0]) {
+        form {
+            display: table;
+            width: 50%;
+            margin: 0 auto;
+        }
 
-              var reader = new FileReader();
+        p {
+            display: table-row;
+        }
 
-              reader.onload = function (e) {
-                  $('.image-upload-wrap').hide();
+        label {
+            display: table-cell;
+            text-align: right;
+            padding-right: 10px
+        }
 
-                  $('.file-upload-image').attr('src', e.target.result);
-                  $('.file-upload-content').show();
+        input {
+            display: table-cell;
+        }
+    </style>
 
-                  $('.image-title').html(input.files[0].name);
-              };
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
 
-              reader.readAsDataURL(input.files[0]);
+                var reader = new FileReader();
 
-          } else {
-              removeUpload();
-          }
-      }
+                reader.onload = function (e) {
+                    $('.image-upload-wrap').hide();
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+                    $('.image-title').html(input.files[0].name);
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                removeUpload();
+            }
+        }
 
-      function removeUpload() {
-          $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-          $('.file-upload-content').hide();
-          $('.image-upload-wrap').show();
-      }
-      $('.image-upload-wrap').bind('dragover', function () {
-          $('.image-upload-wrap').addClass('image-dropping');
-      });
-      $('.image-upload-wrap').bind('dragleave', function () {
-          $('.image-upload-wrap').removeClass('image-dropping');
-      });
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function () {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function () {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
 
-          function createUser(url, title, description, price) {
-              alert("adsljf");
-          var webMethod = "ProjectServices.asmx/CreateUser";
-              var parameters = "{\"firstName\":\"" + encodeURI(firstName) +
-              "\",\"lastName\":\"" + encodeURI(lastName) +
-              "\",\"email\":\"" + encodeURI(email) +
-              "\",\"userName\":\"" + encodeURI(userName) +
-              "\",\"password\":\"" + encodeURI(password) + "\" } ";
-          alert(parameters);
+        function AddArt(userEmail, url, title, description, price) {
+            alert("adsljf");
+            var webMethod = "ProjectServices.asmx/AddArt";
+            var parameters = "{\"userEmail\":\"" + encodeURI(userEmail) +
+                "\",\"url\":\"" + encodeURI(url) +
+                "\",\"title\":\"" + encodeURI(title) +
+                "\",\"description\":\"" + encodeURI(description) +
+                "\",\"price\":\"" + encodeURI(price)+"\" } ";
+            alert(parameters);
 
-          //jQuery ajax method
-              $.ajax({
-              type: "POST",
-          url: webMethod,
-          data: parameters,
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-                  success: function (msg) {
-                      var responseFromServer = msg.d;
-          alert(responseFromServer);
-          alert("after");
-      },
-                  error: function (e) {
-              alert("this code will only execute if javascript is unable to access the webservice");
-          }
-      });
-}
+            //jQuery ajax method
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    var responseFromServer = msg.d;
+                    alert(responseFromServer);
+                    alert("after");
+                },
+                error: function (e) {
+                    alert("this code will only execute if javascript is unable to access the webservice");
+                }
+            });
+        }
 
-  </script>
+    </script>
 </head>
 
 
@@ -227,44 +224,59 @@
 
 
 
-  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<div class="file-upload">
-  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <div class="file-upload">
+        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
 
-  <div class="image-upload-wrap">
-    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-    <div class="drag-text">
-      <h3>Drag and drop a file or select add Image</h3>
+        <div class="image-upload-wrap">
+            <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+            <div class="drag-text">
+                <h3>Drag and drop a file or select add Image</h3>
+            </div>
+        </div>
+        <div class="file-upload-content">
+            <img class="file-upload-image" src="#" alt="your image" />
+            <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="file-upload-content">
-    <img class="file-upload-image" src="#" alt="your image" />
-    <div class="image-title-wrap">
-      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-    </div>
-  </div>
-</div>
 
-<div class="image-info">
-    <form onsubmit="uploadArt($('#URL').val(),
-                                        $('#title').val(),
-                                        $('#description').val(),
-                                        $('#price').val(); return false; ">
-        <p>
-            <label>URL:</label> <input type="text" id="URL"><br>
-        </p>
-        <p>
-            <label>Title:</label> <input type="text" id="title"><br>
-        </p>
-        <p>
-            <label>Description: </label><input type="text" id="description"><br>
-        </p>
-        <p>
-            <label>Price: </label> <input type="text" id="price"><br>
-        </p>
-        <button type="submit" value="submit" class="save-btn">Save</button>
-    </form>
-</div>
+    <div class="image-info">
+        <form onsubmit="AddArt(
+            $('#userEmail').val(),
+            $('#URL').val(),
+            $('#title').val(),
+            $('#description').val(),
+            $('#price').val()); return false; ">
+            <p>
+                <label>Username:</label>
+                <input type="text" id="userEmail">
+                <br>
+            </p>
+            <p>
+                <label>URL:</label>
+                <input type="text" id="URL">
+                <br>
+            </p>
+            <p>
+                <label>Title:</label>
+                <input type="text" id="title">
+                <br>
+            </p>
+            <p>
+                <label>Description: </label>
+                <input type="text" id="description">
+                <br>
+            </p>
+            <p>
+                <label>Price: </label>
+                <input type="text" id="price">
+                <br>
+            </p>
+            <button type="submit" value="submit" class="save-btn">Save</button>
+        </form>
+    </div>
 
 </body>
 </html>
