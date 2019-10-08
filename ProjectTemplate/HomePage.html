@@ -85,17 +85,46 @@
             var artURLS = artURLS.replace("]", "");
             var urls = artURLS.split(",");
             for (var i = 0; i < urls.length; i++) {
+
                 var url = urls[i].substr(1);
                 url = url.slice(0, -1);
+                artist = GetArtist(url);
+
                 var newDiv = document.createElement('div');
                 newDiv.setAttribute("class", "polaroid");
                 var elem = document.createElement('img');
                 elem.setAttribute("style", "width: 800px; height: 800px;overflow: hidden;");
                 elem.src = url;
                 newDiv.appendChild(elem);
+
+                var text = document.createElement('p');
+                text.innerHTML = "artist: " + artist;
+                newDiv.appendChild(text);
+                text.setAttribute("style", "float: right; padding-right: 50px;");
                 document.getElementById('artworkDiv').appendChild(newDiv);
             }
         }
+
+        function GetArtist(url) {
+            var webMethod = "ProjectServices.asmx/GetArtist";
+            var parameters = "{\"url\":\"" + encodeURI(url) + "\" } ";
+            var artist;
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    artist = msg.d;
+                },
+                error: function (e) {
+                //alert("this code will only execute if javascript is unable to access the webservice");
+            }
+            });
+            return artist;
+         }
+
     </script>
     <style>
         body, html {

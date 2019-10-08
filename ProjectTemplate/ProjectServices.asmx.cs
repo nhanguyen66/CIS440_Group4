@@ -192,8 +192,9 @@ namespace ProjectTemplate
             {
                 return "Wrong email address";
             }
-
+            sqlConnection.Close();
             return returnTitle;
+
         }
 
         [WebMethod(EnableSession = true)]
@@ -220,8 +221,36 @@ namespace ProjectTemplate
             } //end using connection
 
             string jsonArt = Newtonsoft.Json.JsonConvert.SerializeObject(columnData);
+            sqlConnection.Close();
             return jsonArt;
         }
+
+        public string GetArtist(string url)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+
+            string getArtistSQL = "SELECT CONCAT(FIRST_NAME, \" \", LAST_NAME) " +
+                                        "FROM USERS U JOIN ART A ON A.USER_ID = U.USER_ID " +
+                                        "WHERE URL = @inURL";
+            string artist;
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand getArtistCommand = new MySqlCommand(getArtistSQL, sqlConnection);
+            getArtistCommand.Parameters.AddWithValue("@inURL", HttpUtility.UrlDecode(url));
+
+            sqlConnection.Open();
+            try
+            {
+                artist = Convert.ToString(getArtistCommand.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+            sqlConnection.Close();
+            return artist;
+        }
+        
 
     } //end class
 
