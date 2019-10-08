@@ -105,15 +105,15 @@ namespace ProjectTemplate
                 //so we can check those values later on other method calls to see if they 
                 //are 1) logged in at all, and 2) and admin or not
                 Session["USER_ID"] = sqlDt.Rows[0]["USER_ID"];
-                currentAccount = (new Account
-                (
-                    sqlDt.Rows[0]["USER_ID"].ToString(),
-                    sqlDt.Rows[0]["PASSWORD"].ToString(),
-                    sqlDt.Rows[0]["FIRST_NAME"].ToString(),
-                    sqlDt.Rows[0]["LAST_NAME"].ToString(),
-                    sqlDt.Rows[0]["EMAIL"].ToString(),
-                    sqlDt.Rows[0]["USERNAME"].ToString()
-                ));
+                //currentAccount = (new Account
+                //(
+                  //  sqlDt.Rows[0]["USER_ID"].ToString(),
+                  //  sqlDt.Rows[0]["PASSWORD"].ToString(),
+                  //  sqlDt.Rows[0]["FIRST_NAME"].ToString(),
+                  //  sqlDt.Rows[0]["LAST_NAME"].ToString(),
+                  //  sqlDt.Rows[0]["EMAIL"].ToString(),
+                   // sqlDt.Rows[0]["USERNAME"].ToString()
+               // ));
 
                 success = true;
             }

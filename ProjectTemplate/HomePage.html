@@ -9,15 +9,16 @@
             onLoadHome();
         }
         window.onload = codeAddress;
-        function LogOn(userId, pass) {
+        function LogOn(email, password) {
             //the url of the webservice we will be talking to
-            var webMethod = "AccountServices.asmx/LogOn";
+            var webMethod = "ProjectServices.asmx/LogOn";
             //the parameters we will pass the service (in json format because curly braces)
             //note we encode the values for transmission over the web.  All the \'s are just
             //because we want to wrap our keynames and values in double quotes so we have to
             //escape the double quotes (because the overall string we're creating is in double quotes!)
-            var parameters = "{\"user_name\":\"" + encodeURI(userId) + "\",\"password\":\"" + encodeURI(pass) + "\"}";
+            var parameters = "{\"email\":\"" + encodeURI(email) + "\",\"password\":\"" + encodeURI(password) + "\"}";
             //jQuery ajax method
+
             $.ajax({
                 //post is more secure than get, and allows
                 //us to send big data if we want.  really just
@@ -39,8 +40,8 @@
                     //but honestly I don't know...)
                     if (msg.d) {
                         //server replied true, so show the accounts panel
-                        showPanel('accountsPanel');
-                        window.location = "http://www.google.com/"
+                        window.location = "profile.html";
+                        alert("success");
                     }
                     else {
                         //server replied false, so let the user know
@@ -54,7 +55,7 @@
                     //then this function mapped to the error key is executed rather
                     //than the one mapped to the success key.  This is just a garbage
                     //alert becaue I'm lazy
-                    alert("You entered wrong information.");
+                    alert("boo...");
                 }
             });
         }
@@ -227,10 +228,11 @@
             <h1 style="font-family: 'Homemade Apple', cursive; display: inline-block; font-size: 50px; font-weight: bold; text-align: center;">&ensp;&ensp;Art Cloud&ensp;</h1>
         </div>
             <div class="col2" style="display: inline-block; width: 20%; float: right; height: 250px;background-color: white;" ">
-                <form onsubmit="LogOn($('#logonId').val(), $('#logonPassword').val()); return false;">
+                <form onsubmit="LogOn($('#emailId').val(),
+                $('#passID').val()); return false; ">
                     
-                        <p><input placeholder="Email" type="text" style="float:right; padding: 0px; " name="user_email" id="logonId">&ensp;
-                        </p><p><input placeholder="Password" type="text" style="float:right;" name="user_password" id="logonPassword">&emsp;&emsp;<br><br>
+                        <p><input placeholder="Email" type="text" style="float:right; padding: 0px; " name="user_email" id="emailId">&ensp;
+                        </p><p><input placeholder="Password" type="text" style="float:right;" name="user_password" id="passID">&emsp;&emsp;<br><br>
                         <p style="float:right;"><input type="submit" value="Log In" style="border-radius: 5px; font-weight: bolder; padding: 0px 0x; cursor: pointer;
     line-height: 30px;
     border: 2px solid black;
