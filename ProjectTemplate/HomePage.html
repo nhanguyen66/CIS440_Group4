@@ -118,27 +118,27 @@
                 ////alert(getARtist(url));
                 //alert("received: " + artist);
 
-            //    var artist;
-            //var webMethod = "ProjectServices.asmx/GetArtist";
-            //var parameters = "{\"url\":\"" + encodeURI(url) + "\" } ";
-            //var artist;
-            //$.ajax({
-            //    type: "POST",
-            //    url: webMethod,
-            //    data: parameters,
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    success: function (msg) {
-            //        //alert(msg.d);
-            //        artist =  msg.d;
-            //        //artist =  msg.d;
-            //        //alert(msg.d);
-            //        //alert("inside method: " + artist);
-            //    },
-            //    error: function (e) {
-            //        alert("this code will only execute if javascript is unable to access the webservice");
-            //}
-            //});
+                var artist = "";
+            var webMethod = "ProjectServices.asmx/GetArtist";
+            var parameters = "{\"url\":\"" + encodeURI(url) + "\" } ";
+            var artist;
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    //alert(msg.d);
+                    artist =  JSON.parse(msg);
+                    //artist =  msg.d;
+                    //alert(msg.d);
+                    //alert("inside method: " + artist);
+                },
+                error: function (e) {
+                    alert("this code will only execute if javascript is unable to access the webservice");
+            }
+            });
 
 
 
@@ -151,7 +151,7 @@
                 newDiv.appendChild(elem);
 
                 var text = document.createElement('p');
-                text.innerHTML = ""; /*"artist: " + artist;*/
+                text.innerHTML = "Artist: <br />Title:<br />Price:" + artist;
                 newDiv.appendChild(text);
                 text.setAttribute("style", "float: right; padding-right: 50px;");
                 document.getElementById('artworkDiv').appendChild(newDiv);
