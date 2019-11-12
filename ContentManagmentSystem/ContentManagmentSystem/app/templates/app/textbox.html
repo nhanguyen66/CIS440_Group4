@@ -1,0 +1,19 @@
+{% extends "app/layout.html" %}
+
+
+{% block title %}
+    Enter Text Page
+{% endblock %}
+{% block content %}
+
+
+    <form method="POST" class="text-editor">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="save btn btn-default">Process</button>
+    </form>
+    <div>
+        {{model.textoutput}}
+    </div>
+{% endblock %}
