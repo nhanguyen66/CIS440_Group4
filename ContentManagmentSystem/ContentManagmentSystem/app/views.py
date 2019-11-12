@@ -32,7 +32,7 @@ def textbox(request):
                     'title':'Output',
                     'message':'Your output page.',
                     'year':datetime.now().year,
-                    'output': TextEditor
+                    'output': TextEditor.textinput
                 })
             #return redirect("home")
     #        return redirect(request, "app/index.html", {"alert": "dsklfj"})
