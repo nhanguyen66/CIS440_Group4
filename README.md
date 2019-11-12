@@ -1,2 +1,4 @@
 # ProjectTemplate
-copy this code into your own repository, and use it for your project as you see fit!
+https://stackoverflow.com/questions/43575864/how-to-add-a-package-to-python-in-visual-studio-2017
+
+use this for adding python packages to project
