@@ -23,16 +23,23 @@ def textbox(request):
 
     if request.method == "POST":
         if form.is_valid():
-            textinput = "asdklfj" #form.save(commit=False)
+            obj = TextEditor()
+            obj.textinput = form.cleaned_data['textinput']
+            textin = obj.textinput
+            #obj.save()
+            #textinput = "asdklfj" #form.save(commit=False)
             #textinput.save()
-            TextEditor.textoutput = textinput
+            #output = form.textinput
+            #TextEditor.save()
+            #textout = obj.process_text(textin)
+            obj.process_text()
             return render(request,
                 'app/output.html',
                 {
                     'title':'Output',
                     'message':'Your output page.',
                     'year':datetime.now().year,
-                    'output': TextEditor.textinput
+                    'output': obj.textoutput
                 })
             #return redirect("home")
     #        return redirect(request, "app/index.html", {"alert": "dsklfj"})

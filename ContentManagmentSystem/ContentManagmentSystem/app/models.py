@@ -11,13 +11,18 @@ import cgi, cgitb
 class TextEditor(models.Model):
     textinput = models.TextField(max_length=500)
     textoutput = "sample output"
+
     def __str__(self):
         return textinput
-    def process_text(textinput):
-        textoutput = textinput + "sdklaf"
+
+    def process_text(self):
+        self.textoutput = self.textinput + "!"
 
           
 
+
+#import cgi, cgitb
+#from spellchecker import SpellChecker
 
 #form = cgi.FieldStorage()
 
@@ -32,4 +37,4 @@ class TextEditor(models.Model):
 #new_message = spell.unknown(split_message)
 
 #for word in new_message:
-#  print(spell.correction(word))
+#  self.textoutput = self.textouput + spell.correction(word))
