@@ -23,16 +23,18 @@ def textbox(request):
 
     if request.method == "POST":
         if form.is_valid():
+            #creating new object of model TextEditor
             obj = TextEditor()
+
+            #sending form info to obj
             obj.textinput = form.cleaned_data['textinput']
-            textin = obj.textinput
-            #obj.save()
-            #textinput = "asdklfj" #form.save(commit=False)
-            #textinput.save()
-            #output = form.textinput
-            #TextEditor.save()
-            #textout = obj.process_text(textin)
+
+            #performing text processing
+            #all functions edit the obj.textoutput variable
             obj.process_text()
+            obj.check_spelling()
+
+            #sending to output page with the textoutput from the model
             return render(request,
                 'app/output.html',
                 {
@@ -41,17 +43,6 @@ def textbox(request):
                     'year':datetime.now().year,
                     'output': obj.textoutput
                 })
-            #return redirect("home")
-    #        return redirect(request, "app/index.html", {"alert": "dsklfj"})
-    #        return redirect(
-    #    request,
-    #    'app/about.html',
-    #    {
-    #        'title':'About',
-    #        'message':'Your application description page.',
-    #        'year':datetime.now().year,
-    #    }
-    #)
     else:
         return render(request, "app/textbox.html", {"form": form})
 

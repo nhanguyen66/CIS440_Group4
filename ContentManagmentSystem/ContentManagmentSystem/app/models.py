@@ -4,7 +4,8 @@ Definition of models.
 
 from django.db import models
 import cgi, cgitb
-#from spellchecker import SpellChecker
+from spellchecker import SpellChecker
+import cgi, cgitb
 
 # Create your models here.
 
@@ -18,23 +19,11 @@ class TextEditor(models.Model):
     def process_text(self):
         self.textoutput = self.textinput + "!"
 
+    def check_spelling(self):
+        split_message = self.textoutput.split()
+        spell = SpellChecker()
+        new_message = spell.unknown(split_message)
+        self.textoutput = ""
+        for word in new_message:
+            self.textoutput = self.textoutput + " " + spell.correction(word)
           
-
-
-#import cgi, cgitb
-#from spellchecker import SpellChecker
-
-#form = cgi.FieldStorage()
-
-#message = form.getvalue('message')
-
-#message = "schol asignment due evry snday"
-
-#split_message = message.split()
-
-#spell = SpellChecker()
-
-#new_message = spell.unknown(split_message)
-
-#for word in new_message:
-#  self.textoutput = self.textouput + spell.correction(word))
