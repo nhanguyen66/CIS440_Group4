@@ -22,8 +22,15 @@ class TextEditor(models.Model):
     def check_spelling(self):
         split_message = self.textoutput.split()
         spell = SpellChecker()
-        new_message = spell.unknown(split_message)
-        self.textoutput = ""
-        for word in new_message:
-            self.textoutput = self.textoutput + " " + spell.correction(word)
+        
+        self.corrected_string = []
+        for word in split_message:
+            self.corrected_string.append(spell.correction(word))
+       
+        self.textoutput = ' '.join(self.corrected_string)
+        
+        #new_message = spell.unknown(split_message)
+        #self.textoutput = ""
+        #for word in new_message:
+            #self.textoutput = self.textoutput + " " + spell.correction(word)
           
