@@ -29,8 +29,5 @@ class TextEditor(models.Model):
        
         self.textoutput = ' '.join(self.corrected_string)
         
-        #new_message = spell.unknown(split_message)
-        #self.textoutput = ""
-        #for word in new_message:
-            #self.textoutput = self.textoutput + " " + spell.correction(word)
+      
           
