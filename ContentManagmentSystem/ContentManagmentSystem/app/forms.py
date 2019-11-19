@@ -4,23 +4,23 @@ Definition of forms.
 SAMPLE TEXTS:
 
 short samples:
-Discover how well we can take care of you today. Members who switched saved an average of $707 a year
+Discver how well we can take cre of you tday. Members who switched saved an average of $707 a year
 
 paragraph:
-The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+The qick brown fx jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
 
 with new lines:
-Protection for You and Your Passengers
+Protection for u and Your Pasengers
 Depending on where you live, how much you drive and what your health insurance covers, the amount of protection you need for each of these can vary:
 
 Personal Injury Protection 
-Extended Benefits Coverage
-Uninsured and Underinsured Motorist Bodily Injury Coverage
-Uninsured and Underinsured Motorist Property Damage Coverage
-Note: The amount you choose for these types of car insurance coverage must be the same for each vehicle on your policy.
+Exended Beneits Covege
+Unnsured and Underinsured Motorist Bodily Injury Coverage
+Unnsured and Underinsured Motorist Property Damage Coverage
+Nte: The amount you choose for these types of car insurance coverage must be the same for each vehicle on your policy.
 
-Roadside Assistance
-Pays toward the cost to tow or repair your vehicle if you are stranded and your vehicle won't run. It also includes services to unlock your vehicle, deliver gas or change a tire.
+Radside Assistance
+Pys toward the cost to tow or repair your vehicle if you are stranded and your vehicle won't run. It also includes services to unlock your vehicle, deliver gas or change a tire.
 
 """
 

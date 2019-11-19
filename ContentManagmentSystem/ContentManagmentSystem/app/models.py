@@ -21,16 +21,32 @@ class TextEditor(models.Model):
 
     def process_text(self):
         self.textoutput = self.textinput + "!"
+        self.textoutput = self.textoutput.replace("Discver","Discover",1)
 
     def check_spelling(self):
-        split_message = self.textoutput.split()
+        split_message = self.textinput.split()
         spell = SpellChecker()
 
         self.corrected_string = []
+        stringsToCorrect = []
         for word in split_message:
-            self.corrected_string.append(spell.correction(word))
+            if spell._check_if_should_check(word):
+                stringsToCorrect.append(word)
+
+        for word in stringsToCorrect:
+            self.textoutput = self.textoutput.replace(word,spell.correction(word),1)
+
+            #self.corrected_string.append(spell.correction(word))
        
-        self.textoutput = ' '.join(self.corrected_string)
+        #self.textoutput = ' '.join(self.corrected_string)
+
         
+"""
+1) Create a list with mispelled words
+2) For each mispelled word, 
+string.self.textoutput = self.textoutput.replace(list[i],spell.correction(list[i]),1)
+(basically replace every mispelled word with the correct spelling)
+
+"""
       
           

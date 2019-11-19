@@ -32,7 +32,7 @@ def textbox(request):
             #performing text processing
             #all functions edit the obj.textoutput variable
             obj.process_text()
-            obj.check_spelling()
+            #obj.check_spelling() #needs changing
 
             #sending to output page with the textoutput from the model
             return render(request,
