@@ -33,6 +33,8 @@ def textbox(request):
             #all functions edit the obj.textoutput variable
             obj.process_text()
             #obj.check_spelling() #needs changing
+            obj.check_difficulty()
+            obj.summarize_text()
 
             #sending to output page with the textoutput from the model
             return render(request,
@@ -41,7 +43,9 @@ def textbox(request):
                     'title':'Output',
                     'message':'Your output page.',
                     'year':datetime.now().year,
-                    'output': obj.textoutput
+                    'output': obj.textoutput,
+                    'difficultyReport':obj.difficultyReport,
+                    'summarizedText':obj.summarizedText
                 })
     else:
         return render(request, "app/textbox.html", {"form": form})

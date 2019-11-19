@@ -2,12 +2,22 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<h2>{{ title }}</h2>
+<h3>{{ "Your Text Processed" }}</h3>
 
 <div>
     <pre>
         {{ output }}
+    </pre>
+    <br />
+    <h3>Your Text Summarized</h3>
+    <pre>
+        {{ summarizedText }}
+    </pre>
+    <br />
+    <h3>Reading Difficulty Report</h3>
+    <pre>
+        {{ difficultyReport }}
     </pre>
 </div>
 

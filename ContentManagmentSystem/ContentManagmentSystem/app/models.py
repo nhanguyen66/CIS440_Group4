@@ -15,14 +15,18 @@ import cgi, cgitb
 class TextEditor(models.Model):
     textinput = models.TextField(blank=True)
     textoutput = "sample output"
+    difficultyReport = ""
+    summarizedText = ""
 
     def __str__(self):
         return textinput
 
+    #testing
     def process_text(self):
         self.textoutput = self.textinput + "!"
         self.textoutput = self.textoutput.replace("Discver","Discover",1)
 
+    #replaces mispelled words
     def check_spelling(self):
         split_message = self.textinput.split()
         spell = SpellChecker()
@@ -38,9 +42,18 @@ class TextEditor(models.Model):
 
             #self.corrected_string.append(spell.correction(word))
        
-        #self.textoutput = ' '.join(self.corrected_string)
+            #self.textoutput = ' '.join(self.corrected_string)
 
-        
+    #Creates a report of the difficulty reading level
+    #Adds potential words to replace that are difficult 
+    #List suggestions for each word
+    #Lists troublesome sentences
+    def check_difficulty(self):
+        self.difficultyReport = "Error determining Difficulties"
+    
+    def summarize_text(self):
+        self.summarizedText = "Error summarizing text"
+
 """
 1) Create a list with mispelled words
 2) For each mispelled word, 
