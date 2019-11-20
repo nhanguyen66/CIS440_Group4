@@ -153,16 +153,19 @@ class TextEditor(models.Model):
 
         for i in range(top_n):
             sentence = " ".join(ranked_sentence[i][1])
-            summarize_text_list.append(sentence)
+            summarize_text_list.append(sentence + ".")
 
         res = []
         [res.append(x) for x in summarize_text_list if x not in res]
-        summarize_text_list = res
+        #summarize_text_list = res
 
         # Step 5 - Offcourse, output the summarize texr
         return summarize_text_list
 
-    #gets the sentences
+
+
+    #"read article"
+    #returns a list of sentences
     def read_article(self, input):
         filedata = input
         filedata = filedata.replace('\n','.')
@@ -170,14 +173,16 @@ class TextEditor(models.Model):
         sentences = []
 
         for sentence in article:
-            #print(sentence)
             if(sentence != '' and sentence !='.'):
                 s = sentence.strip()
-                sentence.replace("[^a-zA-Z]", " ").split(" ")
+                s = s.replace("[^a-zA-Z]", " ")
+                s = s.split(" ")
                 sentences.append(s)
         #sentences.pop()
         return sentences
 
+
+    #get sentence similarity
     def sentence_similarity(self, sent1, sent2, stopwords=None):
         if stopwords is None:
             stopwords = []
@@ -205,6 +210,8 @@ class TextEditor(models.Model):
         return 1 - cosine_distance(vector1, vector2)
 
 
+
+    #built dimilarity matrix
     def build_similarity_matrix(self, sentences, stop_words):
         # Create an empty similarity matrix
         similarity_matrix = np.zeros((len(sentences), len(sentences)))
