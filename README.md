@@ -9,3 +9,4 @@ Packages needed to be installed in Environment (env (Python 3.7 (64-bit))
 - numpy
 - networkx
 - language_check
+- requests
