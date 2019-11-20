@@ -3,18 +3,23 @@
 {% block content %}
 
 <h2>{{ title }}</h2>
-<h3>{{ "Your Text Processed" }}</h3>
 
 <div>
+    <h3>Key Phrases</h3>
+        <ul>
+        {% for s in summarizedText %}
+            <li>
+                {{ s }}
+            </li>
+            {% endfor %}
+        </ul>
+    <br />
+    <h3>{{ "Your Text Processed" }}</h3>
     <pre>
         {{ output }}
     </pre>
     <br />
-    <h3>Key Phrases</h3>
-    <pre>
-        {{ summarizedText }}
-    </pre>
-    <br />
+
     <h3>Reading Difficulty Report</h3>
     <pre>
         {{ difficultyReport }}
