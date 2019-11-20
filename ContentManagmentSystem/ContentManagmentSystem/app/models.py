@@ -9,7 +9,8 @@ from django.db import models
 import cgi, cgitb
 from spellchecker import SpellChecker
 import cgi, cgitb
-
+import nltk
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.cluster.util import cosine_distance
 import numpy as np
@@ -24,12 +25,39 @@ class TextEditor(models.Model):
     difficultyReport = ""
     summarizedText = ""
 
+    testinput = """
+        Definition of forms.
+
+        SAMPLE TEXTS:
+
+        short samples:
+        Discver how well we can take cre of you tday. Members who switched saved an average of $707 a year
+
+        paragraph:
+        The qick brown fx jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+
+        with new lines:
+        Protection for u and Your Pasengers
+        Depending on where you live, how much you drive and what your health insurance covers, the amount of protection you need for each of these can vary:
+
+        Personal Injury Protection 
+        Exended Beneits Covege
+        Unnsured and Underinsured Motorist Bodily Injury Coverage
+        Unnsured and Underinsured Motorist Property Damage Coverage
+        Nte: The amount you choose for these types of car insurance coverage must be the same for each vehicle on your policy.
+
+        Radside Assistance
+        Pys toward the cost to tow or repair your vehicle if you are stranded and your vehicle won't run. It also includes services to unlock your vehicle, deliver gas or change a tire.
+
+        """
+
     def __str__(self):
         return textinput
 
     #testing
     def process_text(self):
-        self.textoutput = self.textinput + "!"
+        #self.textoutput = self.textinput + "!"
+        self.textoutput = self.testinput + "!"
         self.textoutput = self.textoutput.replace("Discver","Discover",1)
 
     #replaces mispelled words
@@ -53,54 +81,104 @@ class TextEditor(models.Model):
     def check_difficulty(self):
         self.difficultyReport = "Error determining Difficulties"
     
+
+
+
+
+
+
+
+
+
     #summarizes the text using helper functions
     def summarize_text(self):
-        self.summarizedText = generate_summary(self.textoutput)
+        output = """
+            Definition of forms.
+
+            SAMPLE TEXTS:
+
+            short samples:
+            Discver how well we can take cre of you tday. Members who switched saved an average of $707 a year
+
+            paragraph:
+            The qick brown fx jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+
+            with new lines:
+            Protection for u and Your Pasengers
+            Depending on where you live, how much you drive and what your health insurance covers, the amount of protection you need for each of these can vary:
+
+            Personal Injury Protection 
+            Exended Beneits Covege
+            Unnsured and Underinsured Motorist Bodily Injury Coverage
+            Unnsured and Underinsured Motorist Property Damage Coverage
+            Nte: The amount you choose for these types of car insurance coverage must be the same for each vehicle on your policy.
+
+            Radside Assistance
+            Pys toward the cost to tow or repair your vehicle if you are stranded and your vehicle won't run. It also includes services to unlock your vehicle, deliver gas or change a tire.
+
+            """
+        self.summarizedText = self.generate_summary(self, output)
         #try:
         #    self.summarizedText = generate_summary(self.textoutput)
         #except:
         #    self.summarizedText = "Error summarizing text"
 
+
+
+
+
+
+
+
     #generating the summary
     #takes in the corrected spelling text
     #returns a summary
-    def generate_summary(text, top_n=5):
+    def generate_summary(self, thing, input, top_n=5):
         stop_words = stopwords.words('english')
-        summarize_text = []
+        summarize_text_list = []
 
         # Step 1 - Read text anc split it
-        sentences = read_article(text)
+        sentences = self.read_article(input)
 
         # Step 2 - Generate Similary Martix across sentences
-        sentence_similarity_martix = build_similarity_matrix(sentences, stop_words)
+        sentence_similarity_martix = self.build_similarity_matrix(sentences, stop_words)
 
         # Step 3 - Rank sentences in similarity martix
         sentence_similarity_graph = nx.from_numpy_array(sentence_similarity_martix)
-        scores = nx.pagerank(sentence_similarity_graph)
+        scores = nx.pagerank(sentence_similarity_graph,max_iter = 100000)
 
         # Step 4 - Sort the rank and pick top sentences
         ranked_sentence = sorted(((scores[i], s) for i, s in enumerate(sentences)), reverse=True)
-        print("Indexes of top ranked_sentence order are ", ranked_sentence)
+        #print("Indexes of top ranked_sentence order are ", ranked_sentence)
 
         for i in range(top_n):
-            summarize_text.append(" ".join(ranked_sentence[i][1]))
+            sentence = " ".join(ranked_sentence[i][1])
+            summarize_text_list.append(sentence)
+
+        res = []
+        [res.append(x) for x in summarize_text_list if x not in res]
+        summarize_text_list = res
 
         # Step 5 - Offcourse, output the summarize texr
-        return summarize_text
+        return summarize_text_list
 
     #gets the sentences
-    def read_article(text):
-        filedata = text
-        article = filedata[0].split(". ")
+    def read_article(self, input):
+        filedata = input
+        filedata = filedata.replace('\n','.')
+        article = filedata.split(".")
         sentences = []
 
         for sentence in article:
             #print(sentence)
-            sentences.append(sentence.replace("[^a-zA-Z]", " ").split(" "))
-        sentences.pop()
+            if(sentence != '' and sentence !='.'):
+                s = sentence.strip()
+                sentence.replace("[^a-zA-Z]", " ").split(" ")
+                sentences.append(s)
+        #sentences.pop()
         return sentences
 
-    def sentence_similarity(sent1, sent2, stopwords=None):
+    def sentence_similarity(self, sent1, sent2, stopwords=None):
         if stopwords is None:
             stopwords = []
 
@@ -127,7 +205,7 @@ class TextEditor(models.Model):
         return 1 - cosine_distance(vector1, vector2)
 
 
-    def build_similarity_matrix(sentences, stop_words):
+    def build_similarity_matrix(self, sentences, stop_words):
         # Create an empty similarity matrix
         similarity_matrix = np.zeros((len(sentences), len(sentences)))
 
@@ -135,7 +213,7 @@ class TextEditor(models.Model):
             for idx2 in range(len(sentences)):
                 if idx1 == idx2:  # ignore if both are same sentences
                     continue
-                similarity_matrix[idx1][idx2] = sentence_similarity(sentences[idx1], sentences[idx2], stop_words)
+                similarity_matrix[idx1][idx2] = self.sentence_similarity(sentences[idx1], sentences[idx2], stop_words)
 
         return similarity_matrix
 
