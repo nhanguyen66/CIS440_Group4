@@ -29,6 +29,7 @@ class TextEditorForm(forms.ModelForm):
                             widget=forms.Textarea ({
                                 'class': 'form-control',
                                 'placeholder':'Type or paste your text here...'}))
+    #save_as_docx=forms.BooleanField()#label=_("Check to save report as doc.x"))
     class Meta:
         model = TextEditor
         fields = ("textinput",)

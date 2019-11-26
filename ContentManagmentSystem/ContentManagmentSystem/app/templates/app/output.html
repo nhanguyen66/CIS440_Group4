@@ -4,7 +4,7 @@
 
 <h2 class="title">Your text processing result</h2>
 <br />
-
+<p><a href="/textbox" class="btn btn-primary btn-large">Process another!</a></p>
 <div>
     <div class="blockHead"><span class="blocktext">Key Phrases</span></div>
     <div class="keyphrases">
@@ -17,16 +17,16 @@
         </ul>
     </div>
     <br />
+        <div class="blockHead"><span class="blocktext">Reading Difficulty Report</span></div>
+    <pre>
+        {{ difficultyReport }}
+    </pre>
     <div class="blockHead"><span class="blocktext">Your Text Processed</span></div>
     <pre>
         {{ output }}
     </pre>
     <br />
-
-    <div class="blockHead"><span class="blocktext">Reading Difficulty Report</span></div>
-    <pre>
-        {{ difficultyReport }}
-    </pre>
 </div>
+
 
 {% endblock %}

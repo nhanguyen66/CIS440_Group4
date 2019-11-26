@@ -27,5 +27,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
     path('textbox/',views.textbox, name='textbox'),
-    path('output/',views.output, name='output')
+    path('output/',views.output, name='output'),
+    path('savedoc/',views.savedoc, name='savedoc')
 ]

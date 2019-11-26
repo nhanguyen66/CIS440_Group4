@@ -16,7 +16,7 @@ import numpy as np
 import networkx as nx
 import language_check as lc
 import textstat
-#import requests
+import requests
 import re
 import string
 from autocorrect import Speller
@@ -31,8 +31,9 @@ class TextEditor(models.Model):
     difficultyReport = ""
     summarizedText = ""
 
+
     testinput = """
-    Why should I complete the Financial Readiness Score tool? (Expanded)
+    Why shuld I complte the Financial Readiness Score tool? (Expanded)
 The FRS tool will give you knowledge and insight about your personal financial well-being. Think of this tool as your financial wellness navigator. We have various tools, products and services but the Financial Readiness Score tool is the only one that can give you a personalized action plan with specific tool recommendations to help improve your financial health.
 
 Do I need to be a USAA member to get my Financial Readiness Score? (Expanded)
@@ -70,20 +71,24 @@ USAA’s core mission is to “facilitate the financial security of our members.
 
     #testing
     def process_text(self):
-        self.textoutput = self.testinput
-
+        self.textoutput = self.textinput
+        self.textoutput = self.textoutput.replace("(Expanded)","")
+        #self.save_as_docx = True
 
     #replaces mispelled words
     def check_spelling(self):
-        split_message = self.textoutput.translate(string.punctuation)
-        split_message = self.textoutput.split(" ")
-        spellc = SpellChecker()
-        ss = Speller()
+        try:
+            split_message = self.textoutput.translate(string.punctuation)
+            split_message = self.textoutput.split(" ")
+            spellc = SpellChecker()
+            ss = Speller()
 
-        misspelled = spellc.unknown(split_message);
+            misspelled = spellc.unknown(split_message);
         
-        for word in misspelled:
-            self.textoutput = self.textoutput#.replace(word, spellc.correction(word))
+            for word in misspelled:
+                self.textoutput = self.textoutput.replace(word, spellc.correction(word))
+        except:
+            self.textoutput = self.textoutput
 
 
     #Creates a report of the difficulty reading level
