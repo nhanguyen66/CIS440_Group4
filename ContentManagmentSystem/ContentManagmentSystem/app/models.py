@@ -32,41 +32,37 @@ class TextEditor(models.Model):
     summarizedText = ""
 
     testinput = """
-USAA Membership Eligibility for Family Members
+    Why should I complete the Financial Readiness Score tool? (Expanded)
+The FRS tool will give you knowledge and insight about your personal financial well-being. Think of this tool as your financial wellness navigator. We have various tools, products and services but the Financial Readiness Score tool is the only one that can give you a personalized action plan with specific tool recommendations to help improve your financial health.
 
-In the USAA Community, we strive to be a trusted place for our members to comment or ask a question about a service USAA provides, connect with other members, or ask questions on military life topics. Each month, in our “You Asked, We Answered” (YAWA) series, we look at the trending topics driven by your questions and comments.
+Do I need to be a USAA member to get my Financial Readiness Score? (Expanded)
+Yes, this is one of the many benefits in becoming a USAA member.
 
-This month, we are taking a closer look at top questions regarding USAA membership eligibility for family members.
+Why does USAA need my financial information when completing the Financial Readiness Score tool? (Expanded)
+The purpose of the Financial Readiness Score tool is to provide an action plan to help each member become aware of his or her current financial well-being and how to help improve it. Without this information, the tool is not effective.
 
-Generally, USAA membership is open to active, retired, and separated veterans with a discharge type of “Honorable” from the U.S. military and their eligible family members. Here is what you need to know about USAA eligibility for family members.
+What if I don't agree with my score? (Expanded)
+Your Financial Readiness Score is calculated based on a complex algorithm that takes in consideration over 13 different categories. One of the biggest reasons for a lower score tends to be from missing information, especially information on accounts you may have outside of USAA. The more information we have, the better we can serve you.
 
-Who is an eligible family member?
+Will my Financial Readiness Score impact my FICO Credit Score? (Expanded)
+No, your Financial Readiness Score is in no way connected to your FICO Credit Score.
 
-Spouses, widows, widowers and un-remarried former spouses of USAA members who joined USAA prior to or during the marriage, as well as individuals whose parents joined USAA.
+How often should I check my Financial Readiness Score? (Expanded)
+You only need to take the full assessment once. Your score and action plan will automatically update as you make progress on your actions. Depending on the specific action plan you may be on, it is a good habit to check back at least on a monthly basis to ensure you are on track and no new plans have arisen.
 
-Are children of my wife (second marriage) eligible for membership?
+How do I access the Financial Readiness Score tool? (Expanded)
+You need to be logged on to access the tool.
+If you are already logged on: Select your name in the upper right corner and then select "My Financial Score."
+If you haven’t logged in: Enter usaa.com/myfinancialscore in your browser and you will be able to log on.
+Is the Financial Readiness Score tool available on the USAA Mobile App? (Expanded)
+Yes:
+If you have completed FRS: It will show up on your home page.
+If you have not completed it: You can access it by selecting ‘More’ on the home page and you will see "Financial Score" as an option.
+How long will it take to complete the assessment and get my score? (Expanded)
+It typically takes 10 to 15 minutes to complete.
 
-YES. USAA members can pass membership eligibility to step-children as well as biological children.
-
-Are children of deceased parents eligible?
-
-For a child to be eligible, the parent must join USAA while living. Once the parent’s USAA membership is established, membership eligibility can be passed on to the member's children. USAA membership cannot be established posthumously for deceased parents.
-
-Can my siblings join?
-
-No. Your USAA membership eligibility cannot be passed to siblings.
-
-Are Parents Eligible for USAA?
-
-No. Your USAA membership eligibility cannot be passed to parents.
-
-Why these eligibility restrictions?
-
-USAA was founded in 1922 when 25 Army officers came together to insure each other’s automobiles.   Since that time, USAA has continued to grow as a membership-based organization. Our eligibility rules reflect USAA’s primary mission…to be the provider of choice for the U.S. military community and their immediate families. This does not reflect USAA’s opinion concerning the desirability or insurability of other family members but rather, a decision to focus our resources on the current eligibility groups.
-
-
-You can find additional details on USAA eligibility requirements here.
-https://communities.usaa.com/t5/Money-Matters/USAA-Membership-Eligibility-for-Family-Members/ba-p/176724
+Why did USAA create this tool? (Expanded)
+USAA’s core mission is to “facilitate the financial security of our members.” We believe we are placing that mission at the heart of this tool in order to empower our members to help understand and improve their finances and financial well-being.
 """
 
     def __str__(self):
