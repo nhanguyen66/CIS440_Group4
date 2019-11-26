@@ -8,7 +8,6 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
 
-
 urlpatterns = [
     path('', views.home, name='home'),
     path('contact/', views.contact, name='contact'),
@@ -29,5 +28,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('textbox/',views.textbox, name='textbox'),
     path('output/',views.output, name='output')
-
 ]

@@ -39,17 +39,17 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                widget=forms.PasswordInput({
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
-    text = forms.CharField(label=_("Text Input"),
+    text = forms.CharField(label=_("Start your text processing now!"),
                             widget=forms.TextInput ({
                                 'class': 'form-control',
-                                'placeholder':'Type or paste your text'}))
+                                'placeholder':'Type or paste your text here...'}))
 
 
 class TextEditorForm(forms.ModelForm):
-    textinput=forms.CharField(label=_("Text Input"),
+    textinput=forms.CharField(label=_("Start your text processing now!"),
                             widget=forms.Textarea ({
                                 'class': 'form-control',
-                                'placeholder':'Type or paste your text'}))
+                                'placeholder':'Type or paste your text here...'}))
     class Meta:
         model = TextEditor
         fields = ("textinput",)

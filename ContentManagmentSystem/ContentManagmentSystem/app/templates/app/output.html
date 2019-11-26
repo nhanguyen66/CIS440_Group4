@@ -2,10 +2,12 @@
 
 {% block content %}
 
-<h2>{{ title }}</h2>
+<h2 class="title">Your text processing result</h2>
+<br />
 
 <div>
-    <h3>Key Phrases</h3>
+    <div class="blockHead"><span class="blocktext">Key Phrases</span></div>
+    <div class="keyphrases">
         <ul>
         {% for s in summarizedText %}
             <li>
@@ -13,14 +15,15 @@
             </li>
             {% endfor %}
         </ul>
+    </div>
     <br />
-    <h3>{{ "Your Text Processed" }}</h3>
+    <div class="blockHead"><span class="blocktext">Your Text Processed</span></div>
     <pre>
         {{ output }}
     </pre>
     <br />
 
-    <h3>Reading Difficulty Report</h3>
+    <div class="blockHead"><span class="blocktext">Reading Difficulty Report</span></div>
     <pre>
         {{ difficultyReport }}
     </pre>

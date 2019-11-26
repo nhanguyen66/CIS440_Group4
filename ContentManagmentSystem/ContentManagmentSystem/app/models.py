@@ -16,7 +16,7 @@ import numpy as np
 import networkx as nx
 import language_check as lc
 import textstat
-import requests
+#import requests
 import re
 
 # Create your models here.
