@@ -18,6 +18,10 @@ import language_check as lc
 import textstat
 #import requests
 import re
+import string
+from autocorrect import Speller
+import spellcheck
+
 
 # Create your models here.
 
@@ -28,29 +32,41 @@ class TextEditor(models.Model):
     summarizedText = ""
 
     testinput = """
-Definition of forms.
+USAA Membership Eligibility for Family Members
 
-SAMPLE TEXTS:
+In the USAA Community, we strive to be a trusted place for our members to comment or ask a question about a service USAA provides, connect with other members, or ask questions on military life topics. Each month, in our “You Asked, We Answered” (YAWA) series, we look at the trending topics driven by your questions and comments.
 
-short samples:
-Discver how well we can take cre of you tday. Members who switched saved an average of $707 a year
+This month, we are taking a closer look at top questions regarding USAA membership eligibility for family members.
 
-paragraph:
-The qick brown fx jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+Generally, USAA membership is open to active, retired, and separated veterans with a discharge type of “Honorable” from the U.S. military and their eligible family members. Here is what you need to know about USAA eligibility for family members.
 
-with new lines:
-Protection for u and Your Pasengers
-Depending on where you live, how much you drive and what your health insurance covers, the amount of protection you need for each of these can vary:
+Who is an eligible family member?
 
-Personal Injury Protection 
-Exended Beneits Covege
-Unnsured and Underinsured Motorist Bodily Injury Coverage
-Unnsured and Underinsured Motorist Property Damage Coverage
-Nte: The amount you choose for these types of car insurance coverage must be the same for each vehicle on your policy.
+Spouses, widows, widowers and un-remarried former spouses of USAA members who joined USAA prior to or during the marriage, as well as individuals whose parents joined USAA.
 
-Radside Assistance
-Pys toward the cost to tow or repair your vehicle if you are stranded and your vehicle won't run. It also includes services to unlock your vehicle, deliver gas or change a tire.
+Are children of my wife (second marriage) eligible for membership?
 
+YES. USAA members can pass membership eligibility to step-children as well as biological children.
+
+Are children of deceased parents eligible?
+
+For a child to be eligible, the parent must join USAA while living. Once the parent’s USAA membership is established, membership eligibility can be passed on to the member's children. USAA membership cannot be established posthumously for deceased parents.
+
+Can my siblings join?
+
+No. Your USAA membership eligibility cannot be passed to siblings.
+
+Are Parents Eligible for USAA?
+
+No. Your USAA membership eligibility cannot be passed to parents.
+
+Why these eligibility restrictions?
+
+USAA was founded in 1922 when 25 Army officers came together to insure each other’s automobiles.   Since that time, USAA has continued to grow as a membership-based organization. Our eligibility rules reflect USAA’s primary mission…to be the provider of choice for the U.S. military community and their immediate families. This does not reflect USAA’s opinion concerning the desirability or insurability of other family members but rather, a decision to focus our resources on the current eligibility groups.
+
+
+You can find additional details on USAA eligibility requirements here.
+https://communities.usaa.com/t5/Money-Matters/USAA-Membership-Eligibility-for-Family-Members/ba-p/176724
 """
 
     def __str__(self):
@@ -58,24 +74,20 @@ Pys toward the cost to tow or repair your vehicle if you are stranded and your v
 
     #testing
     def process_text(self):
-        #self.textoutput = self.textinput + "!"
-        self.textoutput = self.testinput + "!"
+        self.textoutput = self.testinput
 
 
     #replaces mispelled words
     def check_spelling(self):
-        split_message = self.textinput.split()
-        spell = SpellChecker()
+        split_message = self.textoutput.translate(string.punctuation)
+        split_message = self.textoutput.split(" ")
+        spellc = SpellChecker()
+        ss = Speller()
 
-        self.corrected_string = []
-        stringsToCorrect = []
-        for word in split_message:
-            if spell._check_if_should_check(word):
-                stringsToCorrect.append(word)
-
-        for word in stringsToCorrect:
-            self.textoutput = self.textoutput.replace(word,spell.correction(word),1)
-        self.textoutput = self.textoutput.replace("Discver","Discover",1)
+        misspelled = spellc.unknown(split_message);
+        
+        for word in misspelled:
+            self.textoutput = self.textoutput#.replace(word, spellc.correction(word))
 
 
     #Creates a report of the difficulty reading level
